@@ -31,14 +31,12 @@ export const StartupDetail = ({ startup, isOpen, onClose }: StartupDetailProps) 
               <X className="w-4 h-4" />
             </Button>
           </div>
-          <DialogDescription>
-            {startup.ogDescription || startup.description}
-          </DialogDescription>
+          <DialogDescription>{startup.description}</DialogDescription>
         </DialogHeader>
 
         <div className="mt-4 overflow-hidden border rounded-lg">
           <img
-            src={startup.ogImageUrl || startup.imageUrl}
+            src={startup.imageUrl}
             alt={startup.name}
             className="object-cover w-full max-h-[500px]"
           />
@@ -55,25 +53,9 @@ export const StartupDetail = ({ startup, isOpen, onClose }: StartupDetailProps) 
           </div>
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-4">
-          <div>
-            <h3 className="mb-2 text-sm font-medium">Category</h3>
-            <Badge>{startup.category}</Badge>
-          </div>
-          
-          {startup.techVertical && (
-            <div>
-              <h3 className="mb-2 text-sm font-medium">Tech Vertical</h3>
-              <Badge variant="outline">{startup.techVertical}</Badge>
-            </div>
-          )}
-          
-          {startup.roundStage && (
-            <div>
-              <h3 className="mb-2 text-sm font-medium">Round Stage</h3>
-              <Badge variant="outline">{startup.roundStage}</Badge>
-            </div>
-          )}
+        <div className="mt-4">
+          <h3 className="mb-2 text-sm font-medium">Category</h3>
+          <Badge>{startup.category}</Badge>
         </div>
 
         <DialogFooter className="mt-6">

@@ -33,22 +33,16 @@ export const fetchStartupsFromSheet = async (): Promise<Startup[]> => {
       
       const values = parseCSVRow(rows[i]);
       if (values.length < headers.length) continue; // Skip invalid rows
-      
-      // Map columns to their expected positions
-      // This is based on the sheet structure
+
       const startup: Startup = {
         id: String(i),
         name: values[0]?.trim() || "",
         description: values[1]?.trim() || "",
-        ogDescription: values[2]?.trim() || "", // New field for og_description
-        imageUrl: values[3]?.trim() || "https://via.placeholder.com/800x600?text=No+Image",
-        ogImageUrl: values[4]?.trim() || "", // New field for og_image
-        url: values[5]?.trim() || "#",
-        tags: values[6]?.split(',').map(tag => tag.trim()) || [],
-        category: validateCategory(values[7]?.trim()),
-        techVertical: values[8]?.trim() || "", // New field for Tech Vertical
-        roundStage: values[9]?.trim() || "", // New field for Round Stage
-        dateAdded: values[10]?.trim() || new Date().toISOString().slice(0, 10),
+        imageUrl: values[2]?.trim() || "https://via.placeholder.com/800x600?text=No+Image",
+        url: values[3]?.trim() || "#",
+        tags: values[4]?.split(',').map(tag => tag.trim()) || [],
+        category: validateCategory(values[5]?.trim()),
+        dateAdded: values[6]?.trim() || new Date().toISOString().slice(0, 10),
       };
       
       startups.push(startup);

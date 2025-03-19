@@ -17,29 +17,17 @@ export const StartupCard = ({ startup, onClick }: StartupCardProps) => {
     >
       <div className="relative aspect-video overflow-hidden bg-gray-100">
         <img
-          src={startup.ogImageUrl || startup.imageUrl}
+          src={startup.imageUrl}
           alt={startup.name}
           className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
         />
       </div>
       <CardContent className="p-4">
         <h3 className="text-lg font-semibold">{startup.name}</h3>
-        <p className="mt-1 text-sm text-gray-500 line-clamp-2">
-          {startup.ogDescription || startup.description}
-        </p>
+        <p className="mt-1 text-sm text-gray-500 line-clamp-2">{startup.description}</p>
       </CardContent>
       <CardFooter className="flex items-center justify-between p-4 pt-0">
         <div className="flex flex-wrap gap-1">
-          {startup.techVertical && (
-            <Badge key="tech" variant="outline" className="text-xs">
-              {startup.techVertical}
-            </Badge>
-          )}
-          {startup.roundStage && (
-            <Badge key="round" variant="outline" className="text-xs">
-              {startup.roundStage}
-            </Badge>
-          )}
           {startup.tags.slice(0, 2).map((tag) => (
             <Badge key={tag} variant="outline" className="text-xs">
               {tag}
