@@ -8,6 +8,10 @@ export interface Startup {
   tags: string[];
   category: string;
   dateAdded: string;
+  techVertical?: string;
+  roundStage?: string;
+  ogDescription?: string;
+  ogImage?: string;
 }
 
 export type StartupCategory = 

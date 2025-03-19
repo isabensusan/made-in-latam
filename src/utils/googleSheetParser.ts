@@ -43,6 +43,10 @@ export const fetchStartupsFromSheet = async (): Promise<Startup[]> => {
         tags: values[4]?.split(',').map(tag => tag.trim()) || [],
         category: validateCategory(values[5]?.trim()),
         dateAdded: values[6]?.trim() || new Date().toISOString().slice(0, 10),
+        techVertical: values[7]?.trim() || undefined,
+        roundStage: values[8]?.trim() || undefined,
+        ogDescription: values[9]?.trim() || undefined,
+        ogImage: values[10]?.trim() || undefined
       };
       
       startups.push(startup);
