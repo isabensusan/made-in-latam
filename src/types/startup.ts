@@ -2,12 +2,6 @@
 export interface Startup {
   id: string;
   name: string;
-  description: string;
-  imageUrl: string;
-  url: string;
-  tags: string[];
-  category: string;
-  dateAdded: string;
   techVertical?: string;
   roundStage?: string;
   ogDescription?: string;
@@ -18,7 +12,7 @@ export interface Startup {
   country?: string;
   industry?: string;
   sector?: string;
-  investors?: string;
+  investors?: string[];
   roundSize?: string;
   roundSizeRange?: string;
   roundDate?: string;
