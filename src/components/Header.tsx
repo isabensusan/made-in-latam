@@ -23,7 +23,10 @@ export const Header = ({ onSearch }: HeaderProps) => {
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div>
             <a href="/" className="text-2xl font-bold tracking-tight">
-              <img src="/logo.png" className="w-48"></img>
+              <div className="flex">
+                <img src="/logo-sun.png" className="w-8"></img>
+                <p>made in latam</p>
+              </div>
             </a>
           </div>
           <div className="flex items-center gap-4">
