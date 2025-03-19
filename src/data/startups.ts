@@ -178,10 +178,10 @@ export const getOgTitles = (): string[] => {
 // Filter startups based on criteria
 export const filterStartups = (
   startups: Startup[],
-  { category, tag, search }: FilterType
+  { verticals, tag, search }: FilterType
 ): Startup[] => {
   return startups.filter(startup => {
-    const matchesCategory = !category || startup.category === category;
+    const matchesVerticals = !verticals || startup.verticals === verticals;
     const matchesTag = !tag || startup.tags.includes(tag);
     const matchesSearch = !search || 
       startup.name.toLowerCase().includes(search.toLowerCase()) || 
