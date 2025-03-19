@@ -82,7 +82,7 @@ const Index = () => {
       <Header onSearch={handleSearch} />
 
       <main className="container py-8 mx-auto">
-        <h1 className="mb-8 text-3xl font-bold text-center">
+        <h1 className="mt-16 mb-24 text-5xl font-semibold text-center">
           Discover Startups built in Latin America
         </h1>
 
@@ -133,7 +133,7 @@ const Index = () => {
       <footer className="py-8 mt-12 text-center border-t border-gray-200">
         <div className="container mx-auto">
           <p className="text-sm text-gray-500">
-            © {new Date().getFullYear()} Startups Gallery. All rights reserved.
+            © {new Date().getFullYear()} Built by @isabensusan . All rights reserved.
           </p>
         </div>
       </footer>

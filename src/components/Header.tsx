@@ -19,11 +19,11 @@ export const Header = ({ onSearch }: HeaderProps) => {
 
   return (
     <header className="sticky top-0 z-10 bg-white border-b border-gray-200">
-      <div className="container py-4 mx-auto">
+      <div className="container py-2 mx-auto">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div>
             <a href="/" className="text-2xl font-bold tracking-tight">
-              <img src="/logo.png" className="w-64"></img>
+              <img src="/logo.png" className="w-48"></img>
             </a>
           </div>
           <div className="flex items-center gap-4">
