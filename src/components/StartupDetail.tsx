@@ -31,12 +31,12 @@ export const StartupDetail = ({ startup, isOpen, onClose }: StartupDetailProps) 
               <X className="w-4 h-4" />
             </Button>
           </div>
-          <DialogDescription>{startup.description}</DialogDescription>
+          <DialogDescription>{startup.ogDescription}</DialogDescription>
         </DialogHeader>
 
         <div className="mt-4 overflow-hidden border rounded-lg">
           <img
-            src={startup.imageUrl}
+            src={startup.ogImage}
             alt={startup.name}
             className="object-cover w-full max-h-[500px]"
           />
@@ -45,22 +45,20 @@ export const StartupDetail = ({ startup, isOpen, onClose }: StartupDetailProps) 
         <div className="mt-4">
           <h3 className="mb-2 text-sm font-medium">Tags</h3>
           <div className="flex flex-wrap gap-2">
-            {startup.tags.map((tag) => (
-              <Badge key={tag} variant="outline">
-                {tag}
+              <Badge key={startup.country} variant="outline">
+                {startup.country}
               </Badge>
-            ))}
           </div>
         </div>
 
         <div className="mt-4">
           <h3 className="mb-2 text-sm font-medium">Category</h3>
-          <Badge>{startup.category}</Badge>
+          <Badge>{startup.techVertical}</Badge>
         </div>
 
         <DialogFooter className="mt-6">
           <Button asChild>
-            <a href={startup.url} target="_blank" rel="noopener noreferrer">
+            <a href={startup.website} target="_blank" rel="noopener noreferrer">
               Visit Website
               <ExternalLink className="w-4 h-4 ml-2" />
             </a>

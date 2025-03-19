@@ -83,7 +83,7 @@ const Index = () => {
 
       <main className="container py-8 mx-auto">
         <h1 className="mb-8 text-3xl font-bold text-center">
-          Discover Beautiful Startup Websites
+          Discover Startups built in Latin America
         </h1>
 
         {loading ? (
