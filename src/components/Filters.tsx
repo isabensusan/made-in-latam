@@ -3,15 +3,15 @@ import { Button } from "@/components/ui/button";
 import { FilterType } from "@/types/startup";
 
 interface FiltersProps {
-  categories: string[];
-  tags: string[];
+  techVertical: string[];
+  country: string[];
   activeFilters: FilterType;
-  onFilterChange: (type: "verticals" | "tag", value: string | null) => void;
+  onFilterChange: (type: "techVertical" | "country", value: string | null) => void;
 }
 
 export const Filters = ({
-  categories,
-  tags,
+  techVertical,
+  country,
   activeFilters,
   onFilterChange,
 }: FiltersProps) => {
@@ -21,46 +21,48 @@ export const Filters = ({
         <h3 className="mb-2 text-sm font-medium text-gray-500">Categories</h3>
         <div className="flex flex-wrap gap-2">
           <Button
-            variant={!activeFilters.verticals ? "default" : "outline"}
+            variant={!activeFilters.techVertical ? "default" : "outline"}
             size="sm"
-            onClick={() => onFilterChange("verticals", null)}
+            onClick={() => onFilterChange("techVertical", null)}
           >
             All
           </Button>
-          {categories.map((verticals) => (
+          {techVertical.map((techVertical) => (
             <Button
-              key={verticals}
-              variant={activeFilters.verticals === verticals ? "default" : "outline"}
+              key={techVertical}
+              variant={activeFilters.techVertical === techVertical ? "default" : "outline"}
               size="sm"
-              onClick={() => onFilterChange("verticals", verticals)}
+              onClick={() => onFilterChange("techVertical", techVertical)}
             >
-              {verticals}
+              {techVertical}
             </Button>
           ))}
         </div>
       </div>
       
       <div>
-        <h3 className="mb-2 text-sm font-medium text-gray-500">Popular Tags</h3>
+        <h3 className="mb-2 text-sm font-medium text-gray-500">Country</h3>
+
         <div className="flex flex-wrap gap-2">
           <Button
-            variant={!activeFilters.tag ? "default" : "outline"}
+            variant={!activeFilters.country ? "default" : "outline"}
             size="sm"
-            onClick={() => onFilterChange("tag", null)}
+            onClick={() => onFilterChange("country", null)}
           >
             All
           </Button>
-          {tags.slice(0, 10).map((tag) => (
+          {country.map((country) => (
             <Button
-              key={tag}
-              variant={activeFilters.tag === tag ? "default" : "outline"}
+              key={country}
+              variant={activeFilters.country === country ? "default" : "outline"}
               size="sm"
-              onClick={() => onFilterChange("tag", tag)}
+              onClick={() => onFilterChange("country", country)}
             >
-              {tag}
+              {country}
             </Button>
           ))}
         </div>
+
       </div>
     </div>
   );

@@ -178,15 +178,15 @@ export const getOgTitles = (): string[] => {
 // Filter startups based on criteria
 export const filterStartups = (
   startups: Startup[],
-  { techVertical, tag, search }: FilterType
+  { techVertical, country, search }: FilterType
 ): Startup[] => {
   return startups.filter(startup => {
     const matchesVerticals = !techVertical || startup.techVertical === techVertical;
-    const matchesTag = !tag || startup.tags.includes(tag);
+    const matchesCountry = !country || startup.country.includes(country);
     const matchesSearch = !search || 
       startup.name.toLowerCase().includes(search.toLowerCase()) || 
-      startup.description.toLowerCase().includes(search.toLowerCase());
+      startup.ogDescription.toLowerCase().includes(search.toLowerCase());
     
-    return matchesVerticals && matchesTag && matchesSearch;
+    return matchesVerticals && matchesCountry && matchesSearch;
   });
 };

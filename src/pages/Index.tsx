@@ -5,18 +5,18 @@ import { Filters } from "@/components/Filters";
 import { StartupGrid } from "@/components/StartupGrid";
 import { StartupDetail } from "@/components/StartupDetail";
 import { FilterType, Startup } from "@/types/startup";
-import { getStartupById, getStartups, getCategories, getTags, filterStartups } from "@/data/startups";
+import { getStartupById, getStartups, getTechVerticals, getCountries, filterStartups } from "@/data/startups";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
 
 const Index = () => {
   const [allStartups, setAllStartups] = useState<Startup[]>([]);
   const [filteredStartups, setFilteredStartups] = useState<Startup[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [tags, setTags] = useState<string[]>([]);
+  const [techVertical, setTechVertical] = useState<string[]>([]);
+  const [country, setCountry] = useState<string[]>([]);
   const [filters, setFilters] = useState<FilterType>({
-    category: null,
-    tag: null,
+    techVertical: null,
+    country: null,
     search: "",
   });
   const [selectedStartup, setSelectedStartup] = useState<Startup | null>(null);
@@ -31,8 +31,8 @@ const Index = () => {
         const loadedStartups = await getStartups();
         setAllStartups(loadedStartups);
         setFilteredStartups(loadedStartups);
-        setCategories(getCategories());
-        setTags(getTags());
+        setTechVertical(getTechVerticals());
+        setCountry(getCountries());
       } catch (error) {
         console.error("Failed to load startups:", error);
         toast.error("Failed to load startups. Please try again later.");
@@ -51,7 +51,7 @@ const Index = () => {
     );
   }, [allStartups, filters]);
 
-  const handleFilterChange = (type: "category" | "tag", value: string | null) => {
+  const handleFilterChange = (type: "techVertical" | "country", value: string | null) => {
     setFilters((prev) => ({
       ...prev,
       [type]: value,
@@ -110,8 +110,8 @@ const Index = () => {
         ) : (
           <>
             <Filters
-              categories={categories}
-              tags={tags}
+              techVertical={techVertical}
+              country={country}
               activeFilters={filters}
               onFilterChange={handleFilterChange}
             />
