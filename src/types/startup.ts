@@ -12,6 +12,20 @@ export interface Startup {
   roundStage?: string;
   ogDescription?: string;
   ogImage?: string;
+  companyName?: string;
+  website?: string;
+  fundingAmount?: string;
+  country?: string;
+  industry?: string;
+  sector?: string;
+  investors?: string;
+  roundSize?: string;
+  roundSizeRange?: string;
+  roundDate?: string;
+  roundMonth?: string;
+  roundYear?: string;
+  foundationYear?: string;
+  ogTitle?: string;
 }
 
 export type StartupCategory = 

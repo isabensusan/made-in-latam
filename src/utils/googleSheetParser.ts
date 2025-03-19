@@ -34,6 +34,8 @@ export const fetchStartupsFromSheet = async (): Promise<Startup[]> => {
       const values = parseCSVRow(rows[i]);
       if (values.length < headers.length) continue; // Skip invalid rows
 
+      // Map values to respective fields
+      // We're maintaining backward compatibility while adding new fields
       const startup: Startup = {
         id: String(i),
         name: values[0]?.trim() || "",
@@ -46,7 +48,21 @@ export const fetchStartupsFromSheet = async (): Promise<Startup[]> => {
         techVertical: values[7]?.trim() || undefined,
         roundStage: values[8]?.trim() || undefined,
         ogDescription: values[9]?.trim() || undefined,
-        ogImage: values[10]?.trim() || undefined
+        ogImage: values[10]?.trim() || undefined,
+        companyName: values[11]?.trim() || undefined,
+        website: values[12]?.trim() || undefined,
+        fundingAmount: values[13]?.trim() || undefined,
+        country: values[14]?.trim() || undefined,
+        industry: values[15]?.trim() || undefined,
+        sector: values[16]?.trim() || undefined,
+        investors: values[17]?.trim() || undefined,
+        roundSize: values[18]?.trim() || undefined, 
+        roundSizeRange: values[19]?.trim() || undefined,
+        roundDate: values[20]?.trim() || undefined,
+        roundMonth: values[21]?.trim() || undefined,
+        roundYear: values[22]?.trim() || undefined,
+        foundationYear: values[23]?.trim() || undefined,
+        ogTitle: values[24]?.trim() || undefined,
       };
       
       startups.push(startup);

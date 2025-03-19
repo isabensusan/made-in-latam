@@ -91,6 +91,90 @@ export const getOgImages = (): string[] => {
   return [...new Set(images)];
 };
 
+// Get all company names
+export const getCompanyNames = (): string[] => {
+  const names = cachedStartups.map(startup => startup.companyName).filter(Boolean);
+  return [...new Set(names)];
+};
+
+// Get all websites
+export const getWebsites = (): string[] => {
+  const websites = cachedStartups.map(startup => startup.website).filter(Boolean);
+  return [...new Set(websites)];
+};
+
+// Get all funding amounts
+export const getFundingAmounts = (): string[] => {
+  const amounts = cachedStartups.map(startup => startup.fundingAmount).filter(Boolean);
+  return [...new Set(amounts)];
+};
+
+// Get all countries
+export const getCountries = (): string[] => {
+  const countries = cachedStartups.map(startup => startup.country).filter(Boolean);
+  return [...new Set(countries)];
+};
+
+// Get all industries
+export const getIndustries = (): string[] => {
+  const industries = cachedStartups.map(startup => startup.industry).filter(Boolean);
+  return [...new Set(industries)];
+};
+
+// Get all sectors
+export const getSectors = (): string[] => {
+  const sectors = cachedStartups.map(startup => startup.sector).filter(Boolean);
+  return [...new Set(sectors)];
+};
+
+// Get all investors
+export const getInvestors = (): string[] => {
+  const investors = cachedStartups.map(startup => startup.investors).filter(Boolean);
+  return [...new Set(investors)];
+};
+
+// Get all round sizes
+export const getRoundSizes = (): string[] => {
+  const sizes = cachedStartups.map(startup => startup.roundSize).filter(Boolean);
+  return [...new Set(sizes)];
+};
+
+// Get all round size ranges
+export const getRoundSizeRanges = (): string[] => {
+  const ranges = cachedStartups.map(startup => startup.roundSizeRange).filter(Boolean);
+  return [...new Set(ranges)];
+};
+
+// Get all round dates
+export const getRoundDates = (): string[] => {
+  const dates = cachedStartups.map(startup => startup.roundDate).filter(Boolean);
+  return [...new Set(dates)];
+};
+
+// Get all round months
+export const getRoundMonths = (): string[] => {
+  const months = cachedStartups.map(startup => startup.roundMonth).filter(Boolean);
+  return [...new Set(months)];
+};
+
+// Get all round years
+export const getRoundYears = (): string[] => {
+  const years = cachedStartups.map(startup => startup.roundYear).filter(Boolean);
+  return [...new Set(years)];
+};
+
+// Get all foundation years
+export const getFoundationYears = (): string[] => {
+  const years = cachedStartups.map(startup => startup.foundationYear).filter(Boolean);
+  return [...new Set(years)];
+};
+
+// Get all OG titles
+export const getOgTitles = (): string[] => {
+  const titles = cachedStartups.map(startup => startup.ogTitle).filter(Boolean);
+  return [...new Set(titles)];
+};
+
 // Filter startups based on criteria
 export const filterStartups = (
   startups: Startup[],
