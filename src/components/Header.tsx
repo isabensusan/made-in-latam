@@ -23,7 +23,7 @@ export const Header = ({ onSearch }: HeaderProps) => {
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div>
             <a href="/" className="text-2xl font-bold tracking-tight">
-              Made in latam
+              <img src="/logo.png" className="w-64"></img>
             </a>
           </div>
           <div className="flex items-center gap-4">
@@ -37,7 +37,7 @@ export const Header = ({ onSearch }: HeaderProps) => {
                 onChange={handleSearchChange}
               />
             </div>
-            <Button>Submit a Startup</Button>
+            {/* <Button>Submit a Startup</Button> */}
           </div>
         </div>
       </div>
