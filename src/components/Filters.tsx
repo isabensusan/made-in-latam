@@ -6,7 +6,7 @@ interface FiltersProps {
   categories: string[];
   tags: string[];
   activeFilters: FilterType;
-  onFilterChange: (type: "category" | "tag", value: string | null) => void;
+  onFilterChange: (type: "verticals" | "tag", value: string | null) => void;
 }
 
 export const Filters = ({
@@ -21,20 +21,20 @@ export const Filters = ({
         <h3 className="mb-2 text-sm font-medium text-gray-500">Categories</h3>
         <div className="flex flex-wrap gap-2">
           <Button
-            variant={!activeFilters.category ? "default" : "outline"}
+            variant={!activeFilters.verticals ? "default" : "outline"}
             size="sm"
-            onClick={() => onFilterChange("category", null)}
+            onClick={() => onFilterChange("verticals", null)}
           >
             All
           </Button>
-          {categories.map((category) => (
+          {categories.map((verticals) => (
             <Button
-              key={category}
-              variant={activeFilters.category === category ? "default" : "outline"}
+              key={verticals}
+              variant={activeFilters.verticals === verticals ? "default" : "outline"}
               size="sm"
-              onClick={() => onFilterChange("category", category)}
+              onClick={() => onFilterChange("verticals", verticals)}
             >
-              {category}
+              {verticals}
             </Button>
           ))}
         </div>

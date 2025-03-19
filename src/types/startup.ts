@@ -39,6 +39,7 @@ export type StartupCategory =
   | "Other";
 
 export type FilterType = {
+  techVertical?: string | null;
   category: string | null;
   tag: string | null;
   search: string;
