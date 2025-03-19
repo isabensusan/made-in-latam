@@ -35,7 +35,5 @@ export type StartupCategory =
 export type FilterType = {
   techVertical?: string | null;
   country: string | null;
-  // category: string | null;
-  // tag: string | null;
   search: string;
 };
