@@ -5,13 +5,15 @@ import { Filters } from "@/components/Filters";
 import { StartupGrid } from "@/components/StartupGrid";
 import { StartupDetail } from "@/components/StartupDetail";
 import { FilterType, Startup } from "@/types/startup";
-import { getCategories, getStartups, getTags, getStartupById, filterStartups } from "@/data/startups";
+import { getStartupById, getStartups, getCategories, getTags, filterStartups } from "@/data/startups";
+import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 
 const Index = () => {
-  const [allStartups] = useState<Startup[]>(getStartups());
-  const [filteredStartups, setFilteredStartups] = useState<Startup[]>(allStartups);
-  const [categories] = useState<string[]>(getCategories());
-  const [tags] = useState<string[]>(getTags());
+  const [allStartups, setAllStartups] = useState<Startup[]>([]);
+  const [filteredStartups, setFilteredStartups] = useState<Startup[]>([]);
+  const [categories, setCategories] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
   const [filters, setFilters] = useState<FilterType>({
     category: null,
     tag: null,
@@ -19,7 +21,30 @@ const Index = () => {
   });
   const [selectedStartup, setSelectedStartup] = useState<Startup | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
+  // Load startups from Google Sheet on component mount
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      try {
+        const loadedStartups = await getStartups();
+        setAllStartups(loadedStartups);
+        setFilteredStartups(loadedStartups);
+        setCategories(getCategories());
+        setTags(getTags());
+      } catch (error) {
+        console.error("Failed to load startups:", error);
+        toast.error("Failed to load startups. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
+
+  // Apply filters when they change
   useEffect(() => {
     setFilteredStartups(
       filterStartups(allStartups, filters)
@@ -61,17 +86,42 @@ const Index = () => {
           Discover Beautiful Startup Websites
         </h1>
 
-        <Filters
-          categories={categories}
-          tags={tags}
-          activeFilters={filters}
-          onFilterChange={handleFilterChange}
-        />
+        {loading ? (
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <Skeleton className="h-8 w-24" />
+              <div className="flex flex-wrap gap-2">
+                {[...Array(6)].map((_, i) => (
+                  <Skeleton key={i} className="h-8 w-20" />
+                ))}
+              </div>
+            </div>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className="flex flex-col space-y-3">
+                  <Skeleton className="h-[200px] w-full rounded-lg" />
+                  <Skeleton className="h-6 w-3/4" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-2/3" />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <>
+            <Filters
+              categories={categories}
+              tags={tags}
+              activeFilters={filters}
+              onFilterChange={handleFilterChange}
+            />
 
-        <StartupGrid
-          startups={filteredStartups}
-          onStartupClick={handleStartupClick}
-        />
+            <StartupGrid
+              startups={filteredStartups}
+              onStartupClick={handleStartupClick}
+            />
+          </>
+        )}
 
         <StartupDetail
           startup={selectedStartup}
