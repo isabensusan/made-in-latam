@@ -4,10 +4,9 @@ import { Startup } from "@/types/startup";
 
 interface StartupGridProps {
   startups: Startup[];
-  onStartupClick: (id: string) => void;
 }
 
-export const StartupGrid = ({ startups, onStartupClick }: StartupGridProps) => {
+export const StartupGrid = ({ startups }: StartupGridProps) => {
   if (startups.length === 0) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -22,7 +21,6 @@ export const StartupGrid = ({ startups, onStartupClick }: StartupGridProps) => {
         <StartupCard
           key={startup.id}
           startup={startup}
-          onClick={onStartupClick}
         />
       ))}
     </div>

@@ -33,7 +33,13 @@ export type StartupCategory =
   | "Other";
 
 export type FilterType = {
-  techVertical?: string | null;
-  country: string | null;
+  techVertical?: string[] | null;
+  country?: string[] | null;
+  industry?: string[] | null;
+  sector?: string[] | null;
+  investors?: string[] | null;
+  roundStage?: string[] | null;
+  roundDate?: string[] | null;
+  fundingAmountRange?: [number, number] | null;
   search: string;
 };

@@ -1,6 +1,7 @@
 
 import { Startup, FilterType } from "@/types/startup";
 import { fetchStartupsFromSheet } from "@/utils/googleSheetParser";
+import { format, sub } from "date-fns";
 
 // Initial empty array for startups
 let cachedStartups: Startup[] = [];
@@ -141,18 +142,119 @@ export const getOgImages = (): string[] => {
   return [...new Set(images)];
 };
 
+// Get funding amount min and max values
+export const getFundingAmountRange = (): [number, number] => {
+  const amounts = cachedStartups
+    .map(startup => {
+      if (!startup.fundingAmount) return 0;
+      // Remove any non-numeric characters except decimal point
+      const cleanedAmount = startup.fundingAmount.replace(/[^0-9.]/g, '');
+      return parseFloat(cleanedAmount) || 0;
+    })
+    .filter(amount => !isNaN(amount) && isFinite(amount));
+  
+  return [
+    Math.min(...amounts, 0),
+    Math.max(...amounts, 1000000) // Default max of 1M if no valid amounts
+  ];
+};
+
 // Filter startups based on criteria
 export const filterStartups = (
   startups: Startup[],
-  { techVertical, country, search }: FilterType
+  filters: FilterType
 ): Startup[] => {
+  const {
+    techVertical,
+    country,
+    industry,
+    sector,
+    investors,
+    roundStage,
+    roundDate,
+    fundingAmountRange,
+    search
+  } = filters;
+
   return startups.filter(startup => {
-    const matchesVerticals = !techVertical || startup.techVertical === techVertical;
-    const matchesCountry = !country || startup.country.includes(country);
+    // Search filter (name or description)
     const matchesSearch = !search || 
       startup.name.toLowerCase().includes(search.toLowerCase()) || 
       (startup.ogDescription && startup.ogDescription.toLowerCase().includes(search.toLowerCase()));
     
-    return matchesVerticals && matchesCountry && matchesSearch;
+    // Tech Vertical filter
+    const matchesVerticals = !techVertical?.length || 
+      (startup.techVertical && techVertical.includes(startup.techVertical));
+    
+    // Country filter
+    const matchesCountry = !country?.length || 
+      (startup.country && country.includes(startup.country));
+    
+    // Industry filter
+    const matchesIndustry = !industry?.length || 
+      (startup.industry && industry.includes(startup.industry));
+    
+    // Sector filter
+    const matchesSector = !sector?.length || 
+      (startup.sector && sector.includes(startup.sector));
+    
+    // Investors filter
+    const matchesInvestors = !investors?.length || 
+      (startup.investors && startup.investors.some(investor => investors.includes(investor)));
+    
+    // Round Stage filter
+    const matchesRoundStage = !roundStage?.length || 
+      (startup.roundStage && roundStage.includes(startup.roundStage));
+    
+    // Funding Amount Range filter
+    let matchesFundingAmount = true;
+    if (fundingAmountRange && startup.fundingAmount) {
+      const cleanedAmount = startup.fundingAmount.replace(/[^0-9.]/g, '');
+      const amount = parseFloat(cleanedAmount);
+      if (!isNaN(amount) && isFinite(amount)) {
+        matchesFundingAmount = 
+          amount >= fundingAmountRange[0] && 
+          amount <= fundingAmountRange[1];
+      }
+    }
+    
+    // Round Date filter (last month, last quarter, last year)
+    let matchesRoundDate = true;
+    if (roundDate?.length && startup.roundDate) {
+      try {
+        const startupDate = new Date(startup.roundDate);
+        const today = new Date();
+        
+        const lastMonth = sub(today, { months: 1 });
+        const lastQuarter = sub(today, { months: 3 });
+        const lastYear = sub(today, { years: 1 });
+        
+        matchesRoundDate = roundDate.some(period => {
+          if (period === "Last Month" && startupDate >= lastMonth) {
+            return true;
+          }
+          if (period === "Last Quarter" && startupDate >= lastQuarter) {
+            return true;
+          }
+          if (period === "Last Year" && startupDate >= lastYear) {
+            return true;
+          }
+          return false;
+        });
+      } catch (error) {
+        // If date parsing fails, don't filter this startup out
+        matchesRoundDate = true;
+      }
+    }
+    
+    return matchesSearch &&
+           matchesVerticals &&
+           matchesCountry &&
+           matchesIndustry &&
+           matchesSector &&
+           matchesInvestors &&
+           matchesRoundStage &&
+           matchesFundingAmount &&
+           matchesRoundDate;
   });
 };
