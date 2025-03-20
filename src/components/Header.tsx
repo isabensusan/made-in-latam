@@ -18,14 +18,18 @@ export const Header = ({ onSearch }: HeaderProps) => {
     onSearch(query);
   };
 
+  // Get the base URL from environment or default to '/'
+  const baseUrl = import.meta.env.BASE_URL || '/';
+  const logoPath = `${baseUrl}/logo-sun.png`.replace(/\/\//g, '/');
+
   return (
     <header className="sticky top-0 z-10 bg-white border-b border-gray-200">
       <div className="container py-2 mx-auto">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div>
             <Link to="/" className="text-2xl font-bold tracking-tight">
-              <div className="flex">
-                <img src={`${import.meta.env.BASE_URL}/logo-sun.png`} className="w-8"></img>
+              <div className="flex items-center gap-2">
+                <img src={logoPath} alt="Made in Latam Logo" className="w-8 h-8" />
                 <p>made in latam</p>
               </div>
             </Link>

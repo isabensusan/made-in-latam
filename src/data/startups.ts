@@ -30,67 +30,6 @@ export const getStartupById = (id: string): Startup | undefined => {
   return cachedStartups.find(startup => startup.id === id);
 };
 
-// Get all unique categories
-export const getCategories = (): string[] => {
-  const categories = cachedStartups.map(startup => startup.category);
-  return [...new Set(categories)];
-};
-
-// Get all unique tags
-export const getTags = (): string[] => {
-  const tags = cachedStartups.flatMap(startup => startup.tags);
-  return [...new Set(tags)];
-};
-
-// Get all startup names
-export const getStartupNames = (): string[] => {
-  return cachedStartups.map(startup => startup.name);
-};
-
-// Get all startup descriptions
-export const getStartupDescriptions = (): string[] => {
-  return cachedStartups.map(startup => startup.description);
-};
-
-// Get all startup image URLs
-export const getStartupImageUrls = (): string[] => {
-  return cachedStartups.map(startup => startup.imageUrl);
-};
-
-// Get all startup website URLs
-export const getStartupUrls = (): string[] => {
-  return cachedStartups.map(startup => startup.url);
-};
-
-// Get all dates added
-export const getStartupDates = (): string[] => {
-  return cachedStartups.map(startup => startup.dateAdded);
-};
-
-// Get all unique tech verticals
-export const getTechVerticals = (): string[] => {
-  const verticals = cachedStartups.map(startup => startup.techVertical).filter(Boolean);
-  return [...new Set(verticals)];
-};
-
-// Get all unique funding rounds
-export const getFundingRounds = (): string[] => {
-  const rounds = cachedStartups.map(startup => startup.roundStage).filter(Boolean);
-  return [...new Set(rounds)];
-};
-
-// Get all unique OG descriptions
-export const getOgDescriptions = (): string[] => {
-  const descriptions = cachedStartups.map(startup => startup.ogDescription).filter(Boolean);
-  return [...new Set(descriptions)];
-};
-
-// Get all unique OG images
-export const getOgImages = (): string[] => {
-  const images = cachedStartups.map(startup => startup.ogImage).filter(Boolean);
-  return [...new Set(images)];
-};
-
 // Get all company names
 export const getCompanyNames = (): string[] => {
   const names = cachedStartups.map(startup => startup.companyName).filter(Boolean);
@@ -127,10 +66,22 @@ export const getSectors = (): string[] => {
   return [...new Set(sectors)];
 };
 
+// Get all tech verticals
+export const getTechVerticals = (): string[] => {
+  const verticals = cachedStartups.map(startup => startup.techVertical).filter(Boolean);
+  return [...new Set(verticals)];
+};
+
 // Get all investors
 export const getInvestors = (): string[] => {
-  const investors = cachedStartups.map(startup => startup.investors).filter(Boolean);
+  const investors = cachedStartups.map(startup => startup.investors).filter(Boolean) as string[];
   return [...new Set(investors)];
+};
+
+// Get all round stages
+export const getRoundStages = (): string[] => {
+  const stages = cachedStartups.map(startup => startup.roundStage).filter(Boolean);
+  return [...new Set(stages)];
 };
 
 // Get all round sizes
@@ -175,6 +126,18 @@ export const getOgTitles = (): string[] => {
   return [...new Set(titles)];
 };
 
+// Get all OG descriptions
+export const getOgDescriptions = (): string[] => {
+  const descriptions = cachedStartups.map(startup => startup.ogDescription).filter(Boolean);
+  return [...new Set(descriptions)];
+};
+
+// Get all OG images
+export const getOgImages = (): string[] => {
+  const images = cachedStartups.map(startup => startup.ogImage).filter(Boolean);
+  return [...new Set(images)];
+};
+
 // Filter startups based on criteria
 export const filterStartups = (
   startups: Startup[],
@@ -185,7 +148,7 @@ export const filterStartups = (
     const matchesCountry = !country || startup.country.includes(country);
     const matchesSearch = !search || 
       startup.name.toLowerCase().includes(search.toLowerCase()) || 
-      startup.ogDescription.toLowerCase().includes(search.toLowerCase());
+      (startup.ogDescription && startup.ogDescription.toLowerCase().includes(search.toLowerCase()));
     
     return matchesVerticals && matchesCountry && matchesSearch;
   });
