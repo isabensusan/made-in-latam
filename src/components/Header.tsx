@@ -25,7 +25,7 @@ export const Header = ({ onSearch }: HeaderProps) => {
           <div>
             <Link to="/" className="text-2xl font-bold tracking-tight">
               <div className="flex">
-                <img src={`${import.meta.env.BASE_URL}logo-sun.png`} className="w-8"></img>
+                <img src={`${import.meta.env.BASE_URL}/logo-sun.png`} className="w-8"></img>
                 <p>made in latam</p>
               </div>
             </Link>
