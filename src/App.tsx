@@ -12,7 +12,6 @@ const queryClient = new QueryClient();
 // Get the base URL from the environment or use the one from vite.config.ts
 const baseUrl = import.meta.env.BASE_URL || '/';
 
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>

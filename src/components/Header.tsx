@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface HeaderProps {
   onSearch: (query: string) => void;
@@ -22,12 +23,12 @@ export const Header = ({ onSearch }: HeaderProps) => {
       <div className="container py-2 mx-auto">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div>
-            <a href="/" className="text-2xl font-bold tracking-tight">
+            <Link to="/" className="text-2xl font-bold tracking-tight">
               <div className="flex">
-                <img src="/logo-sun.png" className="w-8"></img>
+                <img src={`${import.meta.env.BASE_URL}logo-sun.png`} className="w-8"></img>
                 <p>made in latam</p>
               </div>
-            </a>
+            </Link>
           </div>
           <div className="flex items-center gap-4">
             <div className="relative">
