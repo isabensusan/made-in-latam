@@ -74,7 +74,10 @@ export const getTechVerticals = (): string[] => {
 
 // Get all investors
 export const getInvestors = (): string[] => {
-  const investors = cachedStartups.map(startup => startup.investors).filter(Boolean) as string[];
+  // Flatten the array of string arrays, then filter out empty values, then get unique values
+  const investors = cachedStartups
+    .flatMap(startup => startup.investors || [])
+    .filter(Boolean);
   return [...new Set(investors)];
 };
 
