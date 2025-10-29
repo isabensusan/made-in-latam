@@ -1,4 +1,5 @@
 
+import { memo } from "react";
 import { Startup } from "@/types/startup";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,7 +10,7 @@ interface StartupCardProps {
   startup: Startup;
 }
 
-export const StartupCard = ({ startup }: StartupCardProps) => {
+const StartupCardComponent = ({ startup }: StartupCardProps) => {
   return (
     <Card className="overflow-hidden transition-all cursor-pointer hover:shadow-md">
       <Link to={`/startup/${startup.id}`}>
@@ -17,6 +18,8 @@ export const StartupCard = ({ startup }: StartupCardProps) => {
           <img
             src={startup.ogImage}
             alt={startup.name}
+            loading="lazy"
+            decoding="async"
             className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
           />
         </div>
@@ -44,3 +47,5 @@ export const StartupCard = ({ startup }: StartupCardProps) => {
     </Card>
   );
 };
+
+export const StartupCard = memo(StartupCardComponent);

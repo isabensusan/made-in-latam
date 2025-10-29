@@ -72,6 +72,8 @@ const StartupDetailPage = () => {
           <img
             src={startup.ogImage}
             alt={startup.name}
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover opacity-40"
           />
         )}

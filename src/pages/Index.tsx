@@ -1,9 +1,11 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, lazy, Suspense } from "react";
 import { Header } from "@/components/Header";
 import { Filters } from "@/components/Filters";
 import { StartupGrid } from "@/components/StartupGrid";
-import { FilterDialog } from "@/components/FilterDialog";
+const FilterDialog = lazy(() =>
+  import("@/components/FilterDialog").then((m) => ({ default: m.FilterDialog }))
+);
 import { ActiveFiltersBadges } from "@/components/ActiveFiltersBadges";
 import { FilterType, Startup } from "@/types/startup";
 import { 
@@ -25,7 +27,11 @@ import { Filter } from "lucide-react";
 
 const Index = () => {
   const [allStartups, setAllStartups] = useState<Startup[]>([]);
-  const [filteredStartups, setFilteredStartups] = useState<Startup[]>([]);
+  // Derived filtered startups computed via memo to avoid extra renders
+  const filteredStartups = useMemo(
+    () => filterStartups(allStartups, filters),
+    [allStartups, filters]
+  );
   const [techVertical, setTechVertical] = useState<string[]>([]);
   const [country, setCountry] = useState<string[]>([]);
   const [industry, setIndustry] = useState<string[]>([]);
@@ -54,7 +60,6 @@ const Index = () => {
       try {
         const loadedStartups = await getStartups();
         setAllStartups(loadedStartups);
-        setFilteredStartups(loadedStartups);
         setTechVertical(getTechVerticals());
         setCountry(getCountries());
         setIndustry(getIndustries());
@@ -73,12 +78,7 @@ const Index = () => {
     loadData();
   }, []);
 
-  // Apply filters when they change
-  useEffect(() => {
-    setFilteredStartups(
-      filterStartups(allStartups, filters)
-    );
-  }, [allStartups, filters]);
+  // Filtering is handled by useMemo above
 
   const handleFilterChange = (type: "techVertical" | "country", value: string | null) => {
     if (value === null) {
@@ -181,19 +181,29 @@ const Index = () => {
 
             <StartupGrid startups={filteredStartups} />
 
-            <FilterDialog
-              isOpen={filterDialogOpen}
-              onClose={() => setFilterDialogOpen(false)}
-              filters={filters}
-              onApplyFilters={handleApplyFilters}
-              techVerticals={techVertical}
-              countries={country}
-              industries={industry}
-              sectors={sector}
-              investors={investors}
-              roundStages={roundStage}
-              fundingAmountRange={fundingAmountRange}
-            />
+            {filterDialogOpen && (
+              <Suspense
+                fallback={
+                  <div className="fixed inset-0 flex items-center justify-center bg-black/20">
+                    <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />
+                  </div>
+                }
+              >
+                <FilterDialog
+                  isOpen={filterDialogOpen}
+                  onClose={() => setFilterDialogOpen(false)}
+                  filters={filters}
+                  onApplyFilters={handleApplyFilters}
+                  techVerticals={techVertical}
+                  countries={country}
+                  industries={industry}
+                  sectors={sector}
+                  investors={investors}
+                  roundStages={roundStage}
+                  fundingAmountRange={fundingAmountRange}
+                />
+              </Suspense>
+            )}
           </>
         )}
       </main>
