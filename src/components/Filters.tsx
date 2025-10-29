@@ -23,7 +23,7 @@ export const Filters = ({
         <ScrollArea className="w-full whitespace-nowrap rounded-md">
           <div className="flex flex-wrap gap-2 w-max space-x-1">
             <Button
-              variant={!activeFilters.techVertical ? "default" : "outline"}
+              variant={!activeFilters.techVertical?.length ? "default" : "outline"}
               size="sm"
               onClick={() => onFilterChange("techVertical", null)}
             >
@@ -32,7 +32,7 @@ export const Filters = ({
             {techVertical.map((techVertical) => (
               <Button
                 key={techVertical}
-                variant={activeFilters.techVertical === techVertical ? "default" : "outline"}
+                variant={activeFilters.techVertical?.includes(techVertical) ? "default" : "outline"}
                 size="sm"
                 onClick={() => onFilterChange("techVertical", techVertical)}
               >
@@ -49,7 +49,7 @@ export const Filters = ({
         <ScrollArea className="w-full whitespace-nowrap rounded-md">
           <div className="flex flex-wrap gap-2 w-max space-x-1">
             <Button
-              variant={!activeFilters.country ? "default" : "outline"}
+              variant={!activeFilters.country?.length ? "default" : "outline"}
               size="sm"
               onClick={() => onFilterChange("country", null)}
             >
@@ -58,7 +58,7 @@ export const Filters = ({
             {country.map((country) => (
               <Button
                 key={country}
-                variant={activeFilters.country === country ? "default" : "outline"}
+                variant={activeFilters.country?.includes(country) ? "default" : "outline"}
                 size="sm"
                 onClick={() => onFilterChange("country", country)}
               >
