@@ -129,7 +129,7 @@ const Index = () => {
       <Header onSearch={handleSearch} />
 
       <main className="container py-8 mx-auto">
-        <h1 className="mt-16 mb-24 text-5xl font-semibold text-center">
+        <h1 className="mt-16 mb-24 text-5xl font-semibold text-center text-blue-600">
           Discover Startups built in Latin America
         </h1>
 
