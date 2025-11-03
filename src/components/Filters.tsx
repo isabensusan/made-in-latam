@@ -1,7 +1,14 @@
 
 import { Button } from "@/components/ui/button";
 import { FilterType } from "@/types/startup";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface FiltersProps {
   techVertical: string[];
@@ -46,28 +53,22 @@ export const Filters = ({
       
       <div>
         <h3 className="mb-2 text-sm font-medium text-gray-500">Country</h3>
-        <ScrollArea className="w-full whitespace-nowrap rounded-md">
-          <div className="flex flex-wrap gap-2 w-max space-x-1">
-            <Button
-              variant={!activeFilters.country?.length ? "default" : "outline"}
-              size="sm"
-              onClick={() => onFilterChange("country", null)}
-            >
-              All
-            </Button>
+        <Select
+          value={activeFilters.country?.[0] || "all"}
+          onValueChange={(value) => onFilterChange("country", value === "all" ? null : value)}
+        >
+          <SelectTrigger className="w-[200px]">
+            <SelectValue placeholder="Select a country" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Countries</SelectItem>
             {country.map((c) => (
-              <Button
-                key={c}
-                variant={activeFilters.country?.includes(c) ? "default" : "outline"}
-                size="sm"
-                onClick={() => onFilterChange("country", c)}
-              >
+              <SelectItem key={c} value={c}>
                 {c}
-              </Button>
+              </SelectItem>
             ))}
-          </div>
-          <ScrollBar orientation="horizontal" className="hidden" />
-        </ScrollArea>
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );

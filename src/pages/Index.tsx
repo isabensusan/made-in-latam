@@ -87,10 +87,18 @@ const Index = () => {
         [type]: null,
       }));
     } else {
-      setFilters((prev) => ({
-        ...prev,
-        [type]: prev[type] === null ? [value] : [...(prev[type] as string[]), value],
-      }));
+      // For country, use single-select; for techVertical, use multi-select
+      if (type === "country") {
+        setFilters((prev) => ({
+          ...prev,
+          [type]: [value],
+        }));
+      } else {
+        setFilters((prev) => ({
+          ...prev,
+          [type]: prev[type] === null ? [value] : [...(prev[type] as string[]), value],
+        }));
+      }
     }
   };
 
