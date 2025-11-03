@@ -29,14 +29,14 @@ export const Filters = ({
             >
               All
             </Button>
-            {techVertical.map((techVertical) => (
+            {techVertical.map((tech) => (
               <Button
-                key={techVertical}
-                variant={activeFilters.techVertical?.includes(techVertical) ? "default" : "outline"}
+                key={tech}
+                variant={activeFilters.techVertical?.includes(tech) ? "default" : "outline"}
                 size="sm"
-                onClick={() => onFilterChange("techVertical", techVertical)}
+                onClick={() => onFilterChange("techVertical", tech)}
               >
-                {techVertical}
+                {tech}
               </Button>
             ))}
           </div>
@@ -55,14 +55,14 @@ export const Filters = ({
             >
               All
             </Button>
-            {country.map((country) => (
+            {country.map((c) => (
               <Button
-                key={country}
-                variant={activeFilters.country?.includes(country) ? "default" : "outline"}
+                key={c}
+                variant={activeFilters.country?.includes(c) ? "default" : "outline"}
                 size="sm"
-                onClick={() => onFilterChange("country", country)}
+                onClick={() => onFilterChange("country", c)}
               >
-                {country}
+                {c}
               </Button>
             ))}
           </div>
