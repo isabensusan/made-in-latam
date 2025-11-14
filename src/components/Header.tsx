@@ -29,7 +29,7 @@ export const Header = ({ onSearch }: HeaderProps) => {
           <div>
             <Link to="/" className="text-2xl font-bold tracking-tight">
               <div className="flex items-center gap-2">
-                <img src={logoPath} alt="Made in Latam Logo" className="w-8 h-8" />
+                <img src={logoPath} alt="Made in Latam Logo" loading="lazy" decoding="async" className="w-8 h-8" />
                 <p>made in latam</p>
               </div>
             </Link>

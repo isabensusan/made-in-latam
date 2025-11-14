@@ -1,7 +1,7 @@
 
 import { Startup, FilterType } from "@/types/startup";
 import { fetchStartupsFromSheet } from "@/utils/googleSheetParser";
-import { format, sub } from "date-fns";
+import { sub } from "date-fns";
 
 // Initial empty array for startups
 let cachedStartups: Startup[] = [];
